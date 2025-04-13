@@ -1,0 +1,32 @@
+name: velocity-smartmotd
+
+services:
+  proxy:
+    image: itzg/mc-proxy
+    restart: no
+    user: ${CUID:?UID to run the container as is required}:${CGID:?GID to run the container as is required}
+    environment:
+      UID: 12321 # workaround for rootless docker setup
+      GID: "${CGID}"
+      TYPE: velocity
+    ports:
+      - "25565:25565/tcp"
+    volumes:
+      - ./proxy/data:/server
+      - ./proxy/config:/config
+    depends_on:
+      - server
+  server:
+    image: itzg/minecraft-server
+    hostname: server
+    restart: no
+    user: ${CUID:?UID to run the container as is required}:${CGID:?GID to run the container as is required}
+    environment:
+      UID: "${CUID}"
+      GID: "${CGID}"
+      TYPE: paper
+      EULA: TRUE
+      ONLINE_MODE: FALSE
+    volumes:
+      - ./server/data:/data
+      - ./server/config:/config
