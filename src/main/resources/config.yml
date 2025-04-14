@@ -4,12 +4,13 @@
 #               The plugin will identify which motd to display based on the hostname the clients try to connect to.
 # PASSTHROUGH:  The plugin will inject the placeholders into the motd of the backend server or proxy.
 #               This can be used if you use another plugin that modifies the motd but still wants to use the placeholders.
-mode: SIMPLE
+mode: NETWORK
 
 
 # List of available placeholders:
-# {{hostname}}: The hostname the client tries to connect to.
-# {{clientIp}}: The IP address of the client.
+# {{server_hostname}}:  The hostname the client tries to connect to.
+# {{client_ip}}:        The IP address of the client.
+# {{client_port}}:      The port of the client connection. This will change with each connection.
 
 
 # SIMPLE MODE
@@ -17,15 +18,16 @@ mode: SIMPLE
 # The information below will be displayed to all clients that connect to the server.
 simple:
   version: "Injected Version"
-  motd: "Injected MOTD supports MiniMessage"
+  #motd: "Injected MOTD supports MiniMessage"
+  motd: "Hello {{client_ip}}:{{client_port}}! This is the injected MOTD. It supports MiniMessage."
   favicon: null # Path to the favicon file. Can be a base64 string or a file path.
   players:
     current: 0
     max: 0
     samples:
-      - "Injected Player 1"
-      - "Injected Player 2"
-      - "Injected Player 3"
+      - "Your IP: {{client_ip}}"
+      - "Your Port: {{client_port}}"
+      - "Server: {{server_hostname}}"
 
 # NETWORK MODE
 # To enable this mode, set the mode to NETWORK above.
@@ -42,14 +44,14 @@ network:
         - "Default Player 1"
         - "Default Player 2"
         - "Default Player 3"
-  "example.com":
-    version: "Version of example.com"
-    motd: "MOTD of example.com"
+  "127.0.0.1":
+    version: "Version of 127.0.0.1"
+    motd: "MOTD of 127.0.0.1"
     favicon: null # Path to the favicon file. Can be a base64 string or a file path.
     players:
       current: 0
-      max: 1337
+      max: -1337
       samples:
-        - "Player 1 of example.com"
-        - "Player 2 of example.com"
-        - "Player 3 of example.com"
+        - "Player 1 of 127.0.0.1"
+        - "Player 2 of 127.0.0.1"
+        - "Player 3 of 127.0.0.1"

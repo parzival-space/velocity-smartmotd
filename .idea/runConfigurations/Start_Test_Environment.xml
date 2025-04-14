@@ -18,7 +18,6 @@
         <option name="services">
           <list>
             <option value="proxy" />
-            <option value="server" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker/docker-compose.yml" />

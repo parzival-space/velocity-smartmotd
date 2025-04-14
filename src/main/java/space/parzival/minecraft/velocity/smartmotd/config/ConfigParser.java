@@ -25,7 +25,7 @@ public class ConfigParser<T> {
      */
     public final T config;
 
-    public ConfigParser(File configFile, String defaultConfigResourceStreamPath, Class<T> configClass) throws IOException {
+    public ConfigParser(File configFile, String defaultConfigResourceStreamPath, Class<T> configClass) {
         // create directories if they don't exist
         if (!configFile.getParentFile().exists())
             configFile.getParentFile().mkdirs();

@@ -4,36 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/proxy/config/forwarding.secret" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/proxy/config/velocity.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/server/config/paper-global.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPluginTest.java" afterDir="false" />
+    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="Refactor configuration and add PingEventListener for dynamic MOTD handling">
+      <change afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Start_Test_Environment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Start_Test_Environment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -57,8 +58,12 @@
     "Docker.Start Test Environment.executor": "Run",
     "Docker.docker.proxy: Compose Deployment.executor": "Run",
     "Docker.docker: Compose Deployment.executor": "Run",
+    "JUnit.ConfigModelParserTest.executor": "Coverage",
+    "JUnit.ConfigParserTest.executor": "Coverage",
+    "Maven.velocity-smartmotd [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "development",
@@ -81,32 +86,32 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10887412" />
-      <window_info id="Commit" order="1" weight="0.10887412" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.13897577" />
+      <window_info active="true" id="Commit" order="1" visible="true" weight="0.13897577" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Profiler" />
-      <window_info anchor="bottom" id="Build" />
       <window_info anchor="bottom" id="TODO" />
       <window_info anchor="bottom" id="File Transfer" />
-      <window_info anchor="bottom" id="Run" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.33033788" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.24622574" />
       <window_info anchor="bottom" id="SonarQube for IDE" order="4" weight="0.33033788" />
-      <window_info active="true" anchor="bottom" id="Services" order="5" visible="true" weight="0.33033788" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.33033788" />
+      <window_info active="true" anchor="bottom" id="Services" order="5" visible="true" weight="0.24622574" />
+      <window_info anchor="bottom" id="Build" order="6" weight="0.24622574" />
+      <window_info anchor="bottom" id="Run" order="7" weight="0.24622574" />
+      <window_info anchor="bottom" id="Find" order="8" weight="0.33033788" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="github.copilotToolWindow" />
-      <window_info anchor="right" id="Coverage" side_tool="true" />
       <window_info anchor="right" id="GitHub Copilot Chat" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
       <window_info anchor="right" id="Database" order="2" weight="0.25" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="4" weight="0.25" />
+      <window_info active="true" anchor="right" id="Maven" order="4" visible="true" weight="0.057271305" />
+      <window_info active="true" anchor="right" id="Coverage" order="4" side_tool="true" visible="true" weight="0.057271305" />
     </layout>
   </component>
   <component name="RecentsManager">
@@ -117,17 +122,41 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="$PROJECT_DIR$/docker" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="space.parzival.minecraft.velocity.smartmotd.config" />
       <recent name="space.parzival.minecraft.velocity.smartmotd" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.Start Test Environment">
+    <configuration name="ConfigModelParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="velocity-smartmotd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="space.parzival.minecraft.velocity.smartmotd.config.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="space.parzival.minecraft.velocity.smartmotd.config" />
+      <option name="MAIN_CLASS_NAME" value="space.parzival.minecraft.velocity.smartmotd.config.ConfigModelParserTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ConfigModelParserTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -146,15 +175,58 @@
       <option name="presentableId" value="Default" />
       <updated>1744396718997</updated>
       <workItem from="1744396722185" duration="1948000" />
-      <workItem from="1744511298326" duration="2305000" />
+      <workItem from="1744511298326" duration="2784000" />
+      <workItem from="1744578279232" duration="2612000" />
+      <workItem from="1744581056088" duration="40000" />
+      <workItem from="1744618158475" duration="13879000" />
     </task>
+    <task id="LOCAL-00001" summary="Init">
+      <option name="closed" value="true" />
+      <created>1744513960508</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744513960508</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add configuration model and parser for plugin settings">
+      <option name="closed" value="true" />
+      <created>1744629705289</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744629705289</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Expanded Config Model">
+      <option name="closed" value="true" />
+      <created>1744630939752</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744630939752</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init" />
+    <MESSAGE value="Add configuration model and parser for plugin settings" />
+    <MESSAGE value="Expanded Config Model" />
+    <MESSAGE value="Refactor configuration and add PingEventListener for dynamic MOTD handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor configuration and add PingEventListener for dynamic MOTD handling" />
+  </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/velocity_smartmotd$ConfigParserTest.ic" NAME="ConfigParserTest Coverage Results" MODIFIED="1744630041927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>space.parzival.minecraft.velocity.smartmotd.config.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/velocity_smartmotd$ConfigModelParserTest.ic" NAME="ConfigModelParserTest Coverage Results" MODIFIED="1744630882976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>space.parzival.minecraft.velocity.smartmotd.config.*</FILTER>
+    </SUITE>
   </component>
 </project>
