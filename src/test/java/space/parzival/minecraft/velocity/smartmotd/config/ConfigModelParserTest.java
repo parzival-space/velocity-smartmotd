@@ -2,7 +2,8 @@ package space.parzival.minecraft.velocity.smartmotd.config;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import space.parzival.minecraft.velocity.smartmotd.config.model.Config;
+import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
+import space.parzival.minecraft.velocity.smartmotd.config.model.PluginMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ConfigParserTest {
+class ConfigModelParserTest {
     private final String defaultConfigResourceStreamPath = "/config.yml";
     private final String configFileName = "config.yaml";
 
@@ -20,7 +21,7 @@ class ConfigParserTest {
     void ConfigParser_shouldCreatesConfig_whenFileDoesNotExist(@TempDir Path workDir) throws IOException {
         File configFile = Path.of(workDir.toAbsolutePath().toString(), configFileName).toFile();
 
-        ConfigParser<Config> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, Config.class);
+        ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, ConfigModel.class);
 
         assertTrue(configFile.exists(), "Config file should be created");
     }
@@ -30,7 +31,7 @@ class ConfigParserTest {
         File configFile = Path.of(workDir.toAbsolutePath().toString(), configFileName).toFile();
 
         // try parsing
-        ConfigParser<Config> configParser = new ConfigParser<>(configFile, "/invalid/path/to/config.yml", Config.class);
+        ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, "/invalid/path/to/config.yml", ConfigModel.class);
 
         assertNull(configParser.config, "Config should be null");
     }
@@ -44,10 +45,10 @@ class ConfigParserTest {
         Files.copy(configFileStream, configFile.toPath());
 
         // try parsing
-        ConfigParser<Config> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, Config.class);
+        ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, ConfigModel.class);
 
         assertNotNull(configParser.config, "Config should not be null");
-        assertEquals("SIMPLE", configParser.config.getMode(), "Config mode should be 'SIMPLE'");
+        assertEquals(PluginMode.SIMPLE, configParser.config.getMode(), "Config mode should be 'SIMPLE'");
 
     }
 
@@ -60,16 +61,19 @@ class ConfigParserTest {
         Files.copy(configFileStream, configFile.toPath());
 
         // try parsing
-        ConfigParser<Config> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, Config.class);
+        ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, ConfigModel.class);
 
         assertNotNull(configParser.config, "Config should not be null");
-        assertEquals("SIMPLE", configParser.config.getMode(), "Config mode should be 'SIMPLE'");
+        assertEquals(PluginMode.SIMPLE, configParser.config.getMode(), "Config mode should be 'SIMPLE'");
+
         String oldConfigFileContent = Files.readString(configParser.getConfigFile().toPath());
 
         // change the mode
-        configParser.config.setMode("TEST");
+        configParser.config.setMode(PluginMode.NETWORK);
         configParser.save();
+
         String newConfigFileContent = Files.readString(configParser.getConfigFile().toPath());
+
 
         assertNotEquals(oldConfigFileContent, newConfigFileContent, "Config file should be changed");
     }

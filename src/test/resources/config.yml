@@ -4,7 +4,7 @@
 #               The plugin will identify which motd to display based on the hostname the clients try to connect to.
 # PASSTHROUGH:  The plugin will inject the placeholders into the motd of the backend server or proxy.
 #               This can be used if you use another plugin that modifies the motd but still wants to use the placeholders.
-mode: "SIMPLE"
+mode: SIMPLE
 
 
 # List of available placeholders:
@@ -19,10 +19,10 @@ simple:
   version: "Injected Version"
   motd: "Injected MOTD supports MiniMessage"
   favicon: null # Path to the favicon file. Can be a base64 string or a file path.
-  player:
+  players:
     current: 0
     max: 0
-    list:
+    samples:
       - "Injected Player 1"
       - "Injected Player 2"
       - "Injected Player 3"
@@ -35,10 +35,10 @@ network:
     version: "Default Version"
     motd: "Default MOTD supports MiniMessage"
     favicon: null # Path to the favicon file. Can be a base64 string or a file path.
-    player:
+    players:
       current: 0
       max: 420
-      list:
+      samples:
         - "Default Player 1"
         - "Default Player 2"
         - "Default Player 3"
@@ -46,10 +46,10 @@ network:
     version: "Version of example.com"
     motd: "MOTD of example.com"
     favicon: null # Path to the favicon file. Can be a base64 string or a file path.
-    player:
+    players:
       current: 0
       max: 1337
-      list:
+      samples:
         - "Player 1 of example.com"
         - "Player 2 of example.com"
         - "Player 3 of example.com"
