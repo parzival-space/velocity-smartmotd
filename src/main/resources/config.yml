@@ -1,0 +1,55 @@
+# The working mode of the plugin.
+# SIMPLE:       Define one motd for the entire network with placeholders.
+# NETWORK:      Define a motd for each server in the network with placeholders.
+#               The plugin will identify which motd to display based on the hostname the clients try to connect to.
+# PASSTHROUGH:  The plugin will inject the placeholders into the motd of the backend server or proxy.
+#               This can be used if you use another plugin that modifies the motd but still wants to use the placeholders.
+mode: "SIMPLE"
+
+
+# List of available placeholders:
+# {{hostname}}: The hostname the client tries to connect to.
+# {{clientIp}}: The IP address of the client.
+
+
+# SIMPLE MODE
+# To enable this mode, set the mode to SIMPLE above.
+# The information below will be displayed to all clients that connect to the server.
+simple:
+  version: "Injected Version"
+  motd: "Injected MOTD supports MiniMessage"
+  favicon: null # Path to the favicon file. Can be a base64 string or a file path.
+  player:
+    current: 0
+    max: 0
+    list:
+      - "Injected Player 1"
+      - "Injected Player 2"
+      - "Injected Player 3"
+
+# NETWORK MODE
+# To enable this mode, set the mode to NETWORK above.
+# Clients will see different motds based on the hostname they try to connect to.
+network:
+  default:
+    version: "Default Version"
+    motd: "Default MOTD supports MiniMessage"
+    favicon: null # Path to the favicon file. Can be a base64 string or a file path.
+    player:
+      current: 0
+      max: 420
+      list:
+        - "Default Player 1"
+        - "Default Player 2"
+        - "Default Player 3"
+  "example.com":
+    version: "Version of example.com"
+    motd: "MOTD of example.com"
+    favicon: null # Path to the favicon file. Can be a base64 string or a file path.
+    player:
+      current: 0
+      max: 1337
+      list:
+        - "Player 1 of example.com"
+        - "Player 2 of example.com"
+        - "Player 3 of example.com"
