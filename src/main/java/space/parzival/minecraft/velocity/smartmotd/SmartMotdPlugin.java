@@ -48,7 +48,7 @@ public class SmartMotdPlugin {
                 ConfigModel.class
         );
 
-        this.proxyServer.getEventManager().register(this, new PingEventListener(this, configParser));
+        this.proxyServer.getEventManager().register(this, new PingEventListener(configParser));
         log.info("SmartMotd has been enabled!");
     }
 }

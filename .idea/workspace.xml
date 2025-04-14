@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="Refactor configuration and add PingEventListener for dynamic MOTD handling">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="Update workspace configuration and add target directory to .gitignore">
+      <change afterPath="$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/config/utils/ConfigGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListenerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PingInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PingInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PlayerList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PlayerList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -52,6 +59,7 @@
     "Docker.docker: Compose Deployment.executor": "Run",
     "JUnit.ConfigModelParserTest.executor": "Coverage",
     "JUnit.ConfigParserTest.executor": "Coverage",
+    "JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd.executor": "Run",
     "Maven.velocity-smartmotd [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -86,14 +94,14 @@
       <window_info anchor="bottom" id="Profiler" />
       <window_info anchor="bottom" id="TODO" />
       <window_info anchor="bottom" id="File Transfer" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="0" weight="0.24622574" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.24622574" />
       <window_info anchor="bottom" id="SonarQube for IDE" order="4" weight="0.33033788" />
-      <window_info active="true" anchor="bottom" id="Services" order="5" visible="true" weight="0.24622574" />
+      <window_info anchor="bottom" id="Services" order="5" weight="0.24622574" />
       <window_info anchor="bottom" id="Build" order="6" weight="0.24622574" />
-      <window_info anchor="bottom" id="Run" order="7" weight="0.24622574" />
+      <window_info active="true" anchor="bottom" id="Run" order="7" visible="true" weight="0.24622574" />
       <window_info anchor="bottom" id="Find" order="8" weight="0.33033788" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="github.copilotToolWindow" />
@@ -102,7 +110,7 @@
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
       <window_info anchor="right" id="Database" order="2" weight="0.25" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
-      <window_info active="true" anchor="right" id="Maven" order="4" visible="true" weight="0.057271305" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.057271305" />
       <window_info active="true" anchor="right" id="Coverage" order="4" side_tool="true" visible="true" weight="0.057271305" />
     </layout>
   </component>
@@ -118,11 +126,12 @@
       <recent name="$PROJECT_DIR$/docker" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="space.parzival.minecraft.velocity.smartmotd.event" />
       <recent name="space.parzival.minecraft.velocity.smartmotd.config" />
       <recent name="space.parzival.minecraft.velocity.smartmotd" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.Start Test Environment">
+  <component name="RunManager" selected="JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd">
     <configuration name="ConfigModelParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="velocity-smartmotd" />
       <extension name="coverage">
@@ -138,6 +147,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="velocity-smartmotd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="space.parzival.minecraft.velocity.smartmotd.event.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="space.parzival.minecraft.velocity.smartmotd.event" />
+      <option name="MAIN_CLASS_NAME" value="space.parzival.minecraft.velocity.smartmotd.event.PingEventListenerTest" />
+      <option name="METHOD_NAME" value="onProxyPingEvent_simple_shouldSetMotd" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -146,6 +171,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd" />
         <item itemvalue="JUnit.ConfigModelParserTest" />
       </list>
     </recent_temporary>
@@ -170,7 +196,7 @@
       <workItem from="1744511298326" duration="2784000" />
       <workItem from="1744578279232" duration="2612000" />
       <workItem from="1744581056088" duration="40000" />
-      <workItem from="1744618158475" duration="13924000" />
+      <workItem from="1744618158475" duration="20415000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -204,18 +230,38 @@
       <option name="project" value="LOCAL" />
       <updated>1744636415038</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update workspace configuration and add target directory to .gitignore">
+      <option name="closed" value="true" />
+      <created>1744636468423</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744636468423</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
     <MESSAGE value="Add configuration model and parser for plugin settings" />
     <MESSAGE value="Expanded Config Model" />
     <MESSAGE value="Refactor configuration and add PingEventListener for dynamic MOTD handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor configuration and add PingEventListener for dynamic MOTD handling" />
+    <MESSAGE value="Update workspace configuration and add target directory to .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration and add target directory to .gitignore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

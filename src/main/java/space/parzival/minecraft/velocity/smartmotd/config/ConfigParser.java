@@ -23,7 +23,7 @@ public class ConfigParser<T> {
     /**
      * The config object that is loaded from the config file.
      */
-    public final T config;
+    public T config;
 
     public ConfigParser(File configFile, String defaultConfigResourceStreamPath, Class<T> configClass) {
         // create directories if they don't exist

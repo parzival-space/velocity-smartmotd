@@ -7,12 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import space.parzival.minecraft.velocity.smartmotd.SmartMotdPlugin;
 import space.parzival.minecraft.velocity.smartmotd.config.ConfigParser;
 import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PingInformation;
+import space.parzival.minecraft.velocity.smartmotd.config.model.PlayerList;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,109 +20,94 @@ import java.util.function.Function;
 @Slf4j
 @RequiredArgsConstructor
 public class PingEventListener {
-    private final SmartMotdPlugin plugin;
-    private final ConfigParser<ConfigModel> configParser;
-
+    private static final ServerPing.Players FALLBACK_PLAYER_LIST = new ServerPing.Players(0, 0, List.of());
     private static final Map<String, Function<ProxyPingEvent, String>> placeholders = Map.of(
             "server_hostname", event -> event.getConnection().getRawVirtualHost().orElse(""),
             "client_ip", event -> event.getConnection().getRemoteAddress().getHostName(),
             "client_port", event -> event.getConnection().getRemoteAddress().getPort() + ""
     );
 
+    private final ConfigParser<ConfigModel> configParser;
+
     @Subscribe
     public void onProxyPingEvent(ProxyPingEvent event) {
         log.debug("New ProxyPingEvent received from {}", event.getConnection().getRemoteAddress().getHostName());
 
         switch (configParser.config.getMode()) {
-            case SIMPLE -> handleSimpleMode(event);
-            case NETWORK -> handleNetworkMode(event);
-            case PASSTHROUGH -> handlePassthroughMode(event);
+            // in simple mode, the plugin will display the same motd for all servers
+            case SIMPLE -> {
+                PingInformation pingInformation = configParser.config.getSimple();
+                event.setPing(createServerPing(pingInformation, event));
+            }
+
+            // in network mode, the plugin will display a different motd for each server in the network
+            case NETWORK -> {
+                String hostname = event.getConnection().getRawVirtualHost().orElse("default");
+                PingInformation pingInformation = configParser.config.getNetwork().getOrDefault(hostname,
+                        configParser.config.getNetwork().getOrDefault("default", null));
+
+                if (pingInformation == null) {
+                    log.warn("No ping information found for hostname {} and the default configuration is not available! " +
+                            "Did you break your configuration?", hostname);
+                    break;
+                }
+
+                event.setPing(createServerPing(pingInformation, event));
+            }
+
+            // in passthrough mode, the plugin will only inject placeholders into the ping message
+            case PASSTHROUGH -> event.setPing(createServerPing(new PingInformation(), event));
+
             default -> log.warn("Unknown plugin mode: {}", configParser.config.getMode());
         }
     }
 
-    private void handleSimpleMode(ProxyPingEvent event) {
-        event.setPing(createServerPing(
-                event,
-                configParser.config.getSimple().getVersion(),
-                configParser.config.getSimple().getMotd(),
-                configParser.config.getSimple().getPlayers().getCurrent(),
-                configParser.config.getSimple().getPlayers().getMax(),
-                configParser.config.getSimple().getPlayers().getSamples()
-        ));
-    }
 
-    private void handleNetworkMode(ProxyPingEvent event) {
-        String hostname = event.getConnection().getRawVirtualHost().orElse("default");
-        PingInformation pingInformation = configParser.config.getNetwork().getOrDefault(hostname,
-                configParser.config.getNetwork().getOrDefault("default", null));
-
-        if (pingInformation == null) {
-            log.warn("No ping information found for hostname {} and the default configuration is not available! " +
-                    "Did you break your configuration?", hostname);
-            return;
-        }
-
-        event.setPing(createServerPing(
-                event,
-                pingInformation.getVersion(),
-                pingInformation.getMotd(),
-                pingInformation.getPlayers().getCurrent(),
-                pingInformation.getPlayers().getMax(),
-                pingInformation.getPlayers().getSamples()
-        ));
-    }
-
-    private void handlePassthroughMode(ProxyPingEvent event) {
-        event.setPing(createServerPing(
-                event,
-                event.getPing().getVersion().getName(),
-                MiniMessage.miniMessage().serialize(event.getPing().getDescriptionComponent()),
-                event.getPing().getPlayers().get().getOnline(),
-                event.getPing().getPlayers().get().getMax(),
-                event.getPing().getPlayers().get().getSample().stream()
-                        .map(ServerPing.SamplePlayer::getName)
-                        .toList()
-        ));
-    }
-
-    private ServerPing createServerPing(
-            ProxyPingEvent event,
-            @Nullable String version,
-            @Nullable String description,
-            int onlinePlayers,
-            int maxPlayers,
-            @Nullable List<String> samplePlayers) {
-        String descriptionWithPlaceholders = description == null ? "" : description;
-        String versionWithPlaceholders = version == null ? "" : version;
-        List<String> samplePlayersWithPlaceholders = samplePlayers == null ? List.of() : samplePlayers;
-
-        // replace placeholders
-        for (Map.Entry<String, Function<ProxyPingEvent, String>> entry : placeholders.entrySet()) {
-            descriptionWithPlaceholders = descriptionWithPlaceholders.replace(
-                    "{{" + entry.getKey() + "}}",
-                    entry.getValue().apply(event)
-            );
-            versionWithPlaceholders = versionWithPlaceholders.replace(
-                    "{{" + entry.getKey() + "}}",
-                    entry.getValue().apply(event)
-            );
-            samplePlayersWithPlaceholders = samplePlayersWithPlaceholders.stream()
-                    .map(player -> player.replace("{{" + entry.getKey() + "}}", entry.getValue().apply(event)))
-                    .toList();
-        }
+    // create a new ServerPing object and inject placeholders
+    private ServerPing createServerPing(PingInformation pingInformation, ProxyPingEvent event) {
+        PlayerList playerList = pingInformation.getPlayers() != null ? pingInformation.getPlayers() : new PlayerList();
+        ServerPing.Players backendPlayers = event.getPing().getPlayers().orElse(FALLBACK_PLAYER_LIST);
 
         return new ServerPing(
                 new ServerPing.Version(
                         event.getPing().getVersion().getProtocol(),
-                        versionWithPlaceholders),
+                        injectPlaceholders(pingInformation.getVersion() != null ?
+                                pingInformation.getVersion() : event.getPing().getVersion().getName(), event)
+                ),
                 new ServerPing.Players(
-                        onlinePlayers,
-                        maxPlayers,
-                        samplePlayersWithPlaceholders.stream().map(samplePlayer ->
-                                new ServerPing.SamplePlayer(samplePlayer, UUID.randomUUID())).toList()),
-                MiniMessage.miniMessage().deserialize(descriptionWithPlaceholders),
-                event.getPing().getFavicon().orElse(null) // FIXME: add favicon support
+                        playerList.getCurrent() != null ? playerList.getCurrent() : backendPlayers.getOnline(),
+                        playerList.getMax() != null ? playerList.getMax() : backendPlayers.getMax(),
+                        playerList.getSamples() != null ?
+                                playerList.getSamples().stream().map(sample ->
+                                        new ServerPing.SamplePlayer(
+                                                injectPlaceholders(sample, event),
+                                                UUID.randomUUID())).toList() :
+                                backendPlayers.getSample().stream().map(samplePlayer ->
+                                        new ServerPing.SamplePlayer(
+                                                injectPlaceholders(samplePlayer.getName(), event),
+                                                samplePlayer.getId())).toList()
+                ),
+                injectPlaceholders(pingInformation.getMotd() != null ?
+                        MiniMessage.miniMessage().deserialize(pingInformation.getMotd()) :
+                        event.getPing().getDescriptionComponent(), event),
+                event.getPing().getFavicon().orElse(null),
+                event.getPing().getModinfo().orElse(null)
         );
+    }
+
+    private String injectPlaceholders(String input, ProxyPingEvent event) {
+        for (Map.Entry<String, Function<ProxyPingEvent, String>> entry : placeholders.entrySet()) {
+            input = input.replaceAll(
+                    "{{" + entry.getKey() + "}}",
+                    entry.getValue().apply(event)
+            );
+        }
+        return input;
+    }
+
+    private Component injectPlaceholders(Component input, ProxyPingEvent event) {
+        String intermediate = MiniMessage.miniMessage().serialize(input);
+        intermediate = injectPlaceholders(intermediate, event);
+        return MiniMessage.miniMessage().deserialize(intermediate);
     }
 }

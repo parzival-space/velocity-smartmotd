@@ -1,6 +1,5 @@
 package space.parzival.minecraft.velocity.smartmotd.config.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
