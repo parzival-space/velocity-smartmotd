@@ -1,0 +1,60 @@
+# The working mode of the plugin.
+# SIMPLE:       Define one motd for the entire network with placeholders.
+# NETWORK:      Define a motd for each server in the network with placeholders.
+#               The plugin will identify which motd to display based on the hostname the clients try to connect to.
+# PASSTHROUGH:  The plugin will inject the placeholders into the motd of the backend server or proxy.
+#               This can be used if you use another plugin that modifies the motd but still wants to use the placeholders.
+mode: SIMPLE
+
+
+# List of available placeholders:
+# {{server_hostname}}   The hostname the client tries to connect to.
+# {{client_ip}}         The IP address of the client.
+# {{client_port}}       The port of the client connection. This will change with each connection.
+# {{ping_time}}         The time of the day when the client pinged the server.
+# {{ping_time_24}}      The time of the day when the client pinged the server in 24h format.
+# {{ping_date}}         The date when the client pinged the server.
+
+
+# SIMPLE MODE
+# To enable this mode, set the mode to SIMPLE above.
+# The information below will be displayed to all clients that connect to the server.
+simple:
+  version: "Injected Version"
+  #motd: "Injected MOTD supports MiniMessage"
+  motd: "Hello {{client_ip}}:{{client_port}}! This is the injected MOTD. It supports MiniMessage."
+  favicon: null # Path to the favicon file. Can be a base64 string or a file path.
+  players:
+    current: null
+    max: null
+    samples:
+      - "Your IP: {{client_ip}}"
+      - "Your Port: {{client_port}}"
+      - "Server: {{server_hostname}}"
+
+# NETWORK MODE
+# To enable this mode, set the mode to NETWORK above.
+# Clients will see different motds based on the hostname they try to connect to.
+network:
+  default:
+    version: "Injected Version"
+    motd: "<rainbow>This MOTD is injected by the plugin. Only players connecting via localhost will see this.</rainbow>"
+    favicon: "rr.png" # Path to the favicon file. Can be a base64 string or a file path.
+    players:
+      current: null
+      max: null
+      samples:
+        - "Injected Player #1"
+        - "Injected Player #2"
+        - "Injected Player #3"
+  "127.0.0.1":
+    version: "Cool Modpack"
+    #motd: "Injected MOTD supports MiniMessage"
+    motd: "It also has <red>MiniMessage</red> and <blue>{{placeholder}}</blue> support. You pinged me at <yellow>{{ping_time}}</yellow> on <yellow>{{ping_date}}</yellow>!"
+    favicon: "cc.png" # Path to the favicon file. Can be a base64 string or a file path.
+    players:
+      current: 0
+      max: -1337
+      samples:
+        - "Your IP: {{client_ip}}"
+        - "Server: {{server_hostname}}"
