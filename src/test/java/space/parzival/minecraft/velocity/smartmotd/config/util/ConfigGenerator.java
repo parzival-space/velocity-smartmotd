@@ -48,6 +48,11 @@ public class ConfigGenerator {
         configModel.setMode(PluginMode.SIMPLE);
         configModel.setSimple(getPingInformation());
         configModel.setNetwork(Map.of(
+                "default", getPingInformation(
+                        "1.16.5",
+                        "Default MOTD",
+                        null,
+                        getPlayerList()),
                 "example.com", getPingInformation(
                         "1.16.5",
                         "Welcome to the example server!",
