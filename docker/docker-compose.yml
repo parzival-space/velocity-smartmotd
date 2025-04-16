@@ -12,7 +12,7 @@ services:
     ports:
       - "25565:25565/tcp"
     volumes:
-      #- ./proxy/data:/server
+      - ./proxy/data:/server
       - ./proxy/config:/config
       - ../target/velocity-smartmotd-1.0-SNAPSHOT.jar:/plugins/velocity-smartmotd-1.0-SNAPSHOT.jar:ro
     depends_on:
