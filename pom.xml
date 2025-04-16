@@ -9,7 +9,7 @@
 
   <name>velocity-smartmotd</name>
   <description>Velocity plugin to add more customization to the server's MOTD.</description>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/parzival-space/velocity-smartmotd</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

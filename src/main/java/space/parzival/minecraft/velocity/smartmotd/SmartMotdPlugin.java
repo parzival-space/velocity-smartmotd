@@ -22,7 +22,8 @@ import java.nio.file.Path;
         description = "Dynamic Motd's for your Velocity network",
         authors = {
                 "Parzival (parzival-space) <me@parzival.space>"
-        }
+        },
+        url = "https://github.com/parzival-space/velocity-smartmotd"
 )
 public class SmartMotdPlugin {
     @Getter
