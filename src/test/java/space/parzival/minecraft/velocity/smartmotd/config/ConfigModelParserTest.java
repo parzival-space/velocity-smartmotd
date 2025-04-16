@@ -33,7 +33,7 @@ class ConfigModelParserTest {
         // try parsing
         ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, "/invalid/path/to/config.yml", ConfigModel.class);
 
-        assertNull(configParser.config, "Config should be null");
+        assertNull(configParser.getConfig(), "Config should be null");
     }
 
     @Test
@@ -47,8 +47,8 @@ class ConfigModelParserTest {
         // try parsing
         ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, ConfigModel.class);
 
-        assertNotNull(configParser.config, "Config should not be null");
-        assertEquals(PluginMode.SIMPLE, configParser.config.getMode(), "Config mode should be 'SIMPLE'");
+        assertNotNull(configParser.getConfig(), "Config should not be null");
+        assertEquals(PluginMode.SIMPLE, configParser.getConfig().getMode(), "Config mode should be 'SIMPLE'");
 
     }
 
@@ -63,13 +63,13 @@ class ConfigModelParserTest {
         // try parsing
         ConfigParser<ConfigModel> configParser = new ConfigParser<>(configFile, defaultConfigResourceStreamPath, ConfigModel.class);
 
-        assertNotNull(configParser.config, "Config should not be null");
-        assertEquals(PluginMode.SIMPLE, configParser.config.getMode(), "Config mode should be 'SIMPLE'");
+        assertNotNull(configParser.getConfig(), "Config should not be null");
+        assertEquals(PluginMode.SIMPLE, configParser.getConfig().getMode(), "Config mode should be 'SIMPLE'");
 
         String oldConfigFileContent = Files.readString(configParser.getConfigFile().toPath());
 
         // change the mode
-        configParser.config.setMode(PluginMode.NETWORK);
+        configParser.getConfig().setMode(PluginMode.NETWORK);
         configParser.save();
 
         String newConfigFileContent = Files.readString(configParser.getConfigFile().toPath());

@@ -40,18 +40,18 @@ public class PingEventHandler {
     public void onProxyPingEvent(ProxyPingEvent event) {
         log.debug("New ProxyPingEvent received from {}", event.getConnection().getRemoteAddress().getHostName());
 
-        switch (configParser.config.getMode()) {
+        switch (configParser.getConfig().getMode()) {
             // in simple mode, the plugin will display the same motd for all servers
             case SIMPLE -> {
-                PingInformation pingInformation = configParser.config.getSimple();
+                PingInformation pingInformation = configParser.getConfig().getSimple();
                 event.setPing(createServerPing(pingInformation, event));
             }
 
             // in network mode, the plugin will display a different motd for each server in the network
             case NETWORK -> {
                 String hostname = event.getConnection().getRawVirtualHost().orElse("default");
-                PingInformation pingInformation = configParser.config.getNetwork().getOrDefault(hostname,
-                        configParser.config.getNetwork().getOrDefault("default", null));
+                PingInformation pingInformation = configParser.getConfig().getNetwork().getOrDefault(hostname,
+                        configParser.getConfig().getNetwork().getOrDefault("default", null));
 
                 if (pingInformation == null) {
                     log.warn("No ping information found for hostname {} and the default configuration is not available! " +
@@ -65,7 +65,7 @@ public class PingEventHandler {
             // in passthrough mode, the plugin will only inject placeholders into the ping message
             case PASSTHROUGH -> event.setPing(createServerPing(new PingInformation(), event));
 
-            default -> log.warn("Unknown plugin mode: {}", configParser.config.getMode());
+            default -> log.warn("Unknown plugin mode: {}", configParser.getConfig().getMode());
         }
     }
 

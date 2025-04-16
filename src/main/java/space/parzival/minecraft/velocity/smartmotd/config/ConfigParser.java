@@ -1,6 +1,7 @@
 package space.parzival.minecraft.velocity.smartmotd.config;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -23,7 +24,8 @@ public class ConfigParser<T> {
     /**
      * The config object that is loaded from the config file.
      */
-    public T config;
+    @Getter @Setter
+    private T config;
 
     public ConfigParser(File configFile, String defaultConfigResourceStreamPath, Class<T> configClass) {
         // create directories if they don't exist
