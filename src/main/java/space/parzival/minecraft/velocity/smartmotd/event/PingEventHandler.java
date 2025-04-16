@@ -12,10 +12,14 @@ import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PingInformation;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PlayerList;
 
+import javax.swing.text.DateFormatter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,7 +34,10 @@ public class PingEventHandler {
     private static final Map<String, Function<ProxyPingEvent, String>> placeholders = Map.of(
             "server_hostname", event -> event.getConnection().getRawVirtualHost().orElse(""),
             "client_ip", event -> event.getConnection().getRemoteAddress().getHostName(),
-            "client_port", event -> String.valueOf(event.getConnection().getRemoteAddress().getPort())
+            "client_port", event -> String.valueOf(event.getConnection().getRemoteAddress().getPort()),
+            "ping_time", event -> new SimpleDateFormat("hh:mm aa").format(new Date()),
+            "ping_time_24h", event -> new SimpleDateFormat("HH:mm").format(new Date()),
+            "ping_date", event -> new SimpleDateFormat("dd.MM.yyyy").format(new Date())
     );
 
     private final ConfigParser<ConfigModel> configParser;

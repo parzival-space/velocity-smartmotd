@@ -8,51 +8,50 @@ mode: NETWORK
 
 
 # List of available placeholders:
-# {{server_hostname}}:  The hostname the client tries to connect to.
-# {{client_ip}}:        The IP address of the client.
-# {{client_port}}:      The port of the client connection. This will change with each connection.
+# {{server_hostname}}   The hostname the client tries to connect to.
+# {{client_ip}}         The IP address of the client.
+# {{client_port}}       The port of the client connection. This will change with each connection.
+# {{ping_time}}         The time of the day when the client pinged the server.
+# {{ping_time_24}}      The time of the day when the client pinged the server in 24h format.
+# {{ping_date}}         The date when the client pinged the server.
 
 
 # SIMPLE MODE
 # To enable this mode, set the mode to SIMPLE above.
 # The information below will be displayed to all clients that connect to the server.
+# When you set a field to null, the plugin will pass the backend server's value to the client.
 simple:
   version: "Injected Version"
-  #motd: "Injected MOTD supports MiniMessage"
-  motd: "Hello {{client_ip}}:{{client_port}}! This is the injected MOTD. It supports MiniMessage."
+  motd: "Injected MOTD supports MiniMessage"
   favicon: null # Path to the favicon file. Can be a base64 string or a file path.
   players:
     current: 0
     max: 0
-    samples:
-      - "Your IP: {{client_ip}}"
-      - "Your Port: {{client_port}}"
-      - "Server: {{server_hostname}}"
+    samples: null
 
 # NETWORK MODE
 # To enable this mode, set the mode to NETWORK above.
 # Clients will see different motds based on the hostname they try to connect to.
+# When you set a field to null, the plugin will pass the backend server's value to the client.
 network:
   default:
     version: "Default Version"
     motd: "Default MOTD supports MiniMessage"
     favicon: "icon.png" # Path to the favicon file. Can be a base64 string or a file path.
     players:
-      current: 0
-      max: 420
+      current: null
+      max: null
       samples:
         - "Default Player 1"
         - "Default Player 2"
         - "Default Player 3"
-  "127.0.0.1":
-    version: "Injected Version"
-    #motd: "Injected MOTD supports MiniMessage"
-    motd: "Hello {{client_ip}}:{{client_port}}! This is the injected MOTD. It supports MiniMessage."
+  "example.com":
+    version: "Custom Version"
+    motd: "Injected MOTD supports MiniMessage"
     favicon: null # Path to the favicon file. Can be a base64 string or a file path.
     players:
       current: 0
       max: 0
       samples:
         - "Your IP: {{client_ip}}"
-        - "Your Port: {{client_port}}"
         - "Server: {{server_hostname}}"
