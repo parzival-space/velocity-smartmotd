@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlaceholderParserTest {
     private static final Map<String, Function<Integer, String>> placeholders = Map.of(
