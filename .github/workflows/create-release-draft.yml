@@ -8,6 +8,9 @@ jobs:
     needs: [ package ]
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: "Download Artifacts"
         uses: actions/download-artifact@v4
       - name: "Print Artifacts (Debug only)"
@@ -16,8 +19,7 @@ jobs:
           tree
       - name: "Get Version"
         id: get_version
-        run: |
-          echo "version=$(grep -m 1 -oP '(?<=<version>).*?(?=</version>)' pom.xml)" >> $GITHUB_OUTPUT
+        run: echo "version=$(grep -m 1 -oP '(?<=<version>).*?(?=</version>)' pom.xml)" >> "$GITHUB_OUTPUT"
       - name: "Create Release"
         uses: softprops/action-gh-release@v2
         with:
