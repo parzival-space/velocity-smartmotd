@@ -17,7 +17,7 @@ jobs:
       - name: "Get Version"
         id: get_version
         run: |
-          echo "version=$(grep -m 1 -oP '(?<=<version>).*?(?=</version>)' pom.xml)" >> $GITHUB_ENV
+          echo "version=$(grep -m 1 -oP '(?<=<version>).*?(?=</version>)' pom.xml)" >> $GITHUB_OUTPUT
       - name: "Create Release"
         uses: softprops/action-gh-release@v2
         with:
