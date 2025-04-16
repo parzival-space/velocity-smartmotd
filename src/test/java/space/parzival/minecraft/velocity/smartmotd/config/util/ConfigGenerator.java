@@ -1,4 +1,4 @@
-package space.parzival.minecraft.velocity.smartmotd.config.utils;
+package space.parzival.minecraft.velocity.smartmotd.config.util;
 
 import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PingInformation;
@@ -36,9 +36,9 @@ public class ConfigGenerator {
 
     public static PingInformation getPingInformation(String version, String motd, String favicon, PlayerList playerList) {
         PingInformation pingInformation = new PingInformation();
-        pingInformation.setVersion("1.16.5");
-        pingInformation.setMotd("Welcome to the customized server!");
-        pingInformation.setFavicon("https://example.com/custom_favicon.png");
+        pingInformation.setVersion(version);
+        pingInformation.setMotd(motd);
+        pingInformation.setFavicon(favicon);
         pingInformation.setPlayers(playerList);
         return pingInformation;
     }

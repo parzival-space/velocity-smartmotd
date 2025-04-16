@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="Update workspace configuration and add target directory to .gitignore">
-      <change afterPath="$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/config/utils/ConfigGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListenerTest.java" afterDir="false" />
+    <list default="true" id="c5c144b3-24d6-49e2-8ec4-4194abebe253" name="Changes" comment="Rename PingEventListener to PingEventHandler and enhance favicon handling">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/SmartMotdPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/ConfigParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PingInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PingInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PlayerList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/config/model/PlayerList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/event/PingEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/util/PlaceholderParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/parzival/minecraft/velocity/smartmotd/util/PlaceholderParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -57,18 +55,23 @@
     "Docker.Start Test Environment.executor": "Run",
     "Docker.docker.proxy: Compose Deployment.executor": "Run",
     "Docker.docker: Compose Deployment.executor": "Run",
+    "JUnit.All in velocity-smartmotd.executor": "Run",
     "JUnit.ConfigModelParserTest.executor": "Coverage",
     "JUnit.ConfigParserTest.executor": "Coverage",
     "JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd.executor": "Run",
+    "JUnit.PlaceholderParserTest.executor": "Coverage",
+    "JUnit.PlaceholderParserTest.injectPlaceholders.executor": "Run",
+    "Maven.velocity-smartmotd [clean].executor": "Run",
     "Maven.velocity-smartmotd [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "development",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/parzival/Workspace/velocity-smartmotd/docker/server/config",
+    "last_opened_file_path": "/home/parzival/Workspace/velocity-smartmotd/docker/proxy/config/plugins/smartmotd",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,8 +89,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13897577" />
-      <window_info id="Commit" order="1" weight="0.13897577" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.17103206" />
+      <window_info active="true" id="Commit" order="1" visible="true" weight="0.17103206" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -98,7 +101,7 @@
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.24622574" />
-      <window_info anchor="bottom" id="SonarQube for IDE" order="4" weight="0.33033788" />
+      <window_info anchor="bottom" id="SonarQube for IDE" order="4" weight="0.24622574" />
       <window_info anchor="bottom" id="Services" order="5" weight="0.24622574" />
       <window_info anchor="bottom" id="Build" order="6" weight="0.24622574" />
       <window_info active="true" anchor="bottom" id="Run" order="7" visible="true" weight="0.24622574" />
@@ -110,12 +113,13 @@
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
       <window_info anchor="right" id="Database" order="2" weight="0.25" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="4" weight="0.057271305" />
-      <window_info active="true" anchor="right" id="Coverage" order="4" side_tool="true" visible="true" weight="0.057271305" />
+      <window_info active="true" anchor="right" id="Maven" order="4" visible="true" weight="0.1202111" />
+      <window_info active="true" anchor="right" id="Coverage" order="5" side_tool="true" visible="true" weight="0.1202111" />
     </layout>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docker/proxy/config/plugins/smartmotd" />
       <recent name="$PROJECT_DIR$/docker/server/config" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -126,12 +130,21 @@
       <recent name="$PROJECT_DIR$/docker" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="space.parzival.minecraft.velocity.smartmotd.util" />
       <recent name="space.parzival.minecraft.velocity.smartmotd.event" />
       <recent name="space.parzival.minecraft.velocity.smartmotd.config" />
       <recent name="space.parzival.minecraft.velocity.smartmotd" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd">
+  <component name="RunManager" selected="JUnit.All in velocity-smartmotd">
+    <configuration name="All in velocity-smartmotd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="velocity-smartmotd" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConfigModelParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="velocity-smartmotd" />
       <extension name="coverage">
@@ -163,6 +176,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlaceholderParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="velocity-smartmotd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="space.parzival.minecraft.velocity.smartmotd.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="space.parzival.minecraft.velocity.smartmotd.util" />
+      <option name="MAIN_CLASS_NAME" value="space.parzival.minecraft.velocity.smartmotd.util.PlaceholderParserTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaceholderParserTest.injectPlaceholders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="velocity-smartmotd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="space.parzival.minecraft.velocity.smartmotd.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="space.parzival.minecraft.velocity.smartmotd.util" />
+      <option name="MAIN_CLASS_NAME" value="space.parzival.minecraft.velocity.smartmotd.util.PlaceholderParserTest" />
+      <option name="METHOD_NAME" value="injectPlaceholders" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -171,6 +215,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in velocity-smartmotd" />
+        <item itemvalue="JUnit.PlaceholderParserTest" />
+        <item itemvalue="JUnit.PlaceholderParserTest.injectPlaceholders" />
         <item itemvalue="JUnit.PingEventListenerTest.onProxyPingEvent_simple_shouldSetMotd" />
         <item itemvalue="JUnit.ConfigModelParserTest" />
       </list>
@@ -196,7 +243,8 @@
       <workItem from="1744511298326" duration="2784000" />
       <workItem from="1744578279232" duration="2612000" />
       <workItem from="1744581056088" duration="40000" />
-      <workItem from="1744618158475" duration="20415000" />
+      <workItem from="1744618158475" duration="22744000" />
+      <workItem from="1744759166108" duration="6466000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -238,7 +286,31 @@
       <option name="project" value="LOCAL" />
       <updated>1744636468423</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update workspace configuration and enhance player list handling in the PingEventListener">
+      <option name="closed" value="true" />
+      <created>1744643708869</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1744643708869</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add PlaceholderParser and tests for placeholder injection functionality">
+      <option name="closed" value="true" />
+      <created>1744765741831</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744765741831</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Rename PingEventListener to PingEventHandler and enhance favicon handling">
+      <option name="closed" value="true" />
+      <created>1744765762645</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1744765762645</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +333,21 @@
     <MESSAGE value="Expanded Config Model" />
     <MESSAGE value="Refactor configuration and add PingEventListener for dynamic MOTD handling" />
     <MESSAGE value="Update workspace configuration and add target directory to .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration and add target directory to .gitignore" />
+    <MESSAGE value="Update workspace configuration and enhance player list handling in the PingEventListener" />
+    <MESSAGE value="Add PlaceholderParser and tests for placeholder injection functionality" />
+    <MESSAGE value="Rename PingEventListener to PingEventHandler and enhance favicon handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename PingEventListener to PingEventHandler and enhance favicon handling" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/space/parzival/minecraft/velocity/smartmotd/util/PlaceholderParserTest.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -273,6 +359,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/velocity_smartmotd$ConfigModelParserTest.ic" NAME="ConfigModelParserTest Coverage Results" MODIFIED="1744630882976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>space.parzival.minecraft.velocity.smartmotd.config.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/velocity_smartmotd$PlaceholderParserTest.ic" NAME="PlaceholderParserTest Coverage Results" MODIFIED="1744765705172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>space.parzival.minecraft.velocity.smartmotd.util.*</FILTER>
     </SUITE>
   </component>
 </project>

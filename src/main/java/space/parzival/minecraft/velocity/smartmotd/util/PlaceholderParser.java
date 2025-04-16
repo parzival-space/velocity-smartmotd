@@ -14,7 +14,6 @@ public class PlaceholderParser {
      * @param placeholders Map of placeholders with their parameterized function
      * @param placeholderFunctionArgument The argument to be passed to the function
      * @return The input string with all placeholders replaced
-     * @param <T> The type of the argument to be passed to the function
      */
     public static <T> String injectPlaceholders(String input, Map<String, Function<T, String>> placeholders, T placeholderFunctionArgument) {
         for (Map.Entry<String, Function<T, String>> entry : placeholders.entrySet()) {

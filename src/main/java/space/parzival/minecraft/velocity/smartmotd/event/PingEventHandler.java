@@ -34,6 +34,7 @@ public class PingEventHandler {
     );
 
     private final ConfigParser<ConfigModel> configParser;
+    private final Path dataDirectory;
 
     @Subscribe
     public void onProxyPingEvent(ProxyPingEvent event) {
@@ -75,7 +76,7 @@ public class PingEventHandler {
         ServerPing.Players backendPlayers = event.getPing().getPlayers().orElse(FALLBACK_PLAYER_LIST);
 
         String faviconPath = pingInformation.getFavicon() != null ?
-                Paths.get(configParser.getConfigFile().getParent(), pingInformation.getFavicon()).toString() :
+                Paths.get(dataDirectory.toString(), pingInformation.getFavicon()).toString() :
                 null;
         log.info("Loading favicon from path: {}", faviconPath);
 

@@ -36,7 +36,7 @@ network:
   default:
     version: "Default Version"
     motd: "Default MOTD supports MiniMessage"
-    favicon: null # Path to the favicon file. Can be a base64 string or a file path.
+    favicon: "icon.png" # Path to the favicon file. Can be a base64 string or a file path.
     players:
       current: 0
       max: 420
@@ -45,13 +45,14 @@ network:
         - "Default Player 2"
         - "Default Player 3"
   "127.0.0.1":
-    version: "Version of 127.0.0.1"
-    motd: "MOTD of 127.0.0.1"
+    version: "Injected Version"
+    #motd: "Injected MOTD supports MiniMessage"
+    motd: "Hello {{client_ip}}:{{client_port}}! This is the injected MOTD. It supports MiniMessage."
     favicon: null # Path to the favicon file. Can be a base64 string or a file path.
     players:
       current: 0
-      max: -1337
+      max: 0
       samples:
-        - "Player 1 of 127.0.0.1"
-        - "Player 2 of 127.0.0.1"
-        - "Player 3 of 127.0.0.1"
+        - "Your IP: {{client_ip}}"
+        - "Your Port: {{client_port}}"
+        - "Server: {{server_hostname}}"
