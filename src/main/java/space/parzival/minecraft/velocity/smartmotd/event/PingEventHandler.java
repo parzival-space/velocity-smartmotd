@@ -3,28 +3,34 @@ package space.parzival.minecraft.velocity.smartmotd.event;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.server.ServerPing;
+import com.velocitypowered.api.util.Favicon;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import space.parzival.minecraft.velocity.smartmotd.config.ConfigParser;
 import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PingInformation;
 import space.parzival.minecraft.velocity.smartmotd.config.model.PlayerList;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
+import static space.parzival.minecraft.velocity.smartmotd.util.PlaceholderParser.injectPlaceholders;
+
 @Slf4j
 @RequiredArgsConstructor
-public class PingEventListener {
+public class PingEventHandler {
     private static final ServerPing.Players FALLBACK_PLAYER_LIST = new ServerPing.Players(0, 0, List.of());
     private static final Map<String, Function<ProxyPingEvent, String>> placeholders = Map.of(
             "server_hostname", event -> event.getConnection().getRawVirtualHost().orElse(""),
             "client_ip", event -> event.getConnection().getRemoteAddress().getHostName(),
-            "client_port", event -> event.getConnection().getRemoteAddress().getPort() + ""
+            "client_port", event -> String.valueOf(event.getConnection().getRemoteAddress().getPort())
     );
 
     private final ConfigParser<ConfigModel> configParser;
@@ -68,46 +74,60 @@ public class PingEventListener {
         PlayerList playerList = pingInformation.getPlayers() != null ? pingInformation.getPlayers() : new PlayerList();
         ServerPing.Players backendPlayers = event.getPing().getPlayers().orElse(FALLBACK_PLAYER_LIST);
 
+        String faviconPath = pingInformation.getFavicon() != null ?
+                Paths.get(configParser.getConfigFile().getParent(), pingInformation.getFavicon()).toString() :
+                null;
+        log.info("Loading favicon from path: {}", faviconPath);
+
         return new ServerPing(
+                // set protocol version (passthrough mode) and version name
                 new ServerPing.Version(
                         event.getPing().getVersion().getProtocol(),
                         injectPlaceholders(pingInformation.getVersion() != null ?
-                                pingInformation.getVersion() : event.getPing().getVersion().getName(), event)
+                                pingInformation.getVersion() : event.getPing().getVersion().getName(), placeholders, event)
                 ),
+
+                // set players
                 new ServerPing.Players(
                         playerList.getCurrent() != null ? playerList.getCurrent() : backendPlayers.getOnline(),
                         playerList.getMax() != null ? playerList.getMax() : backendPlayers.getMax(),
                         playerList.getSamples() != null ?
                                 playerList.getSamples().stream().map(sample ->
                                         new ServerPing.SamplePlayer(
-                                                injectPlaceholders(sample, event),
+                                                injectPlaceholders(sample, placeholders, event),
                                                 UUID.randomUUID())).toList() :
                                 backendPlayers.getSample().stream().map(samplePlayer ->
                                         new ServerPing.SamplePlayer(
-                                                injectPlaceholders(samplePlayer.getName(), event),
+                                                injectPlaceholders(samplePlayer.getName(), placeholders, event),
                                                 samplePlayer.getId())).toList()
                 ),
+
+                // set description (motd)
                 injectPlaceholders(pingInformation.getMotd() != null ?
                         MiniMessage.miniMessage().deserialize(pingInformation.getMotd()) :
-                        event.getPing().getDescriptionComponent(), event),
-                event.getPing().getFavicon().orElse(null),
+                        event.getPing().getDescriptionComponent(), placeholders, event),
+
+                // set favicon
+                faviconPath != null ?
+                        loadFavicon(faviconPath) :
+                        event.getPing().getFavicon().orElse(null),
+
+                // set mod list
                 event.getPing().getModinfo().orElse(null)
         );
     }
 
-    private String injectPlaceholders(String input, ProxyPingEvent event) {
-        for (Map.Entry<String, Function<ProxyPingEvent, String>> entry : placeholders.entrySet()) {
-            input = input.replaceAll(
-                    "{{" + entry.getKey() + "}}",
-                    entry.getValue().apply(event)
-            );
-        }
-        return input;
-    }
+    private Favicon loadFavicon(String pathOrBase64Url) {
+        if (pathOrBase64Url.startsWith("data:image/png;base64,"))
+            return new Favicon(pathOrBase64Url);
 
-    private Component injectPlaceholders(Component input, ProxyPingEvent event) {
-        String intermediate = MiniMessage.miniMessage().serialize(input);
-        intermediate = injectPlaceholders(intermediate, event);
-        return MiniMessage.miniMessage().deserialize(intermediate);
+        try {
+            return Favicon.create(Path.of(pathOrBase64Url));
+        } catch (IOException e) {
+            log.warn("Failed to load favicon from path: {}", pathOrBase64Url, e);
+
+            // create missing texture
+            return Favicon.create(new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
+        }
     }
 }

@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import space.parzival.minecraft.velocity.smartmotd.config.ConfigParser;
 import space.parzival.minecraft.velocity.smartmotd.config.model.ConfigModel;
-import space.parzival.minecraft.velocity.smartmotd.event.PingEventListener;
+import space.parzival.minecraft.velocity.smartmotd.event.PingEventHandler;
 
 import java.nio.file.Path;
 
@@ -48,7 +48,7 @@ public class SmartMotdPlugin {
                 ConfigModel.class
         );
 
-        this.proxyServer.getEventManager().register(this, new PingEventListener(configParser));
+        this.proxyServer.getEventManager().register(this, new PingEventHandler(configParser));
         log.info("SmartMotd has been enabled!");
     }
 }
