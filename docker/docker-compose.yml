@@ -13,7 +13,7 @@ services:
     volumes:
       - ./proxy/data:/server
       - ./proxy/config:/config
-      - ../target/velocity-smartmotd-1.0.0.jar:/plugins/velocity-smartmotd.jar:ro
+      - ../target/velocity-smartmotd-1.0.1.jar:/plugins/velocity-smartmotd.jar:ro
     depends_on:
       - server
   server:
