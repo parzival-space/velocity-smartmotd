@@ -2,7 +2,7 @@ name: velocity-smartmotd
 
 services:
   proxy:
-    image: itzg/mc-proxy
+    image: docker.io/itzg/mc-proxy:2026.8.0
     restart: no
     user: ${CUID:-0}:${CGID:-0}
     environment:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - server
   server:
-    image: itzg/minecraft-server
+    image: docker.io/itzg/minecraft-server:2026.8.1
     hostname: server
     restart: no
     user: ${CUID:-0}:${CGID:-0}
