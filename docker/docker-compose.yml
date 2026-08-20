@@ -3,7 +3,6 @@ name: velocity-smartmotd
 services:
   proxy:
     image: docker.io/itzg/mc-proxy:2026.8.0
-    restart: no
     user: ${CUID:-0}:${CGID:-0}
     environment:
       UID: 12321 # workaround for rootless docker setup
@@ -14,13 +13,12 @@ services:
     volumes:
       - ./proxy/data:/server
       - ./proxy/config:/config
-      - ../target/velocity-smartmotd-1.0-SNAPSHOT.jar:/plugins/velocity-smartmotd-1.0-SNAPSHOT.jar:ro
+      - ../target/velocity-smartmotd-1.0.0.jar:/plugins/velocity-smartmotd.jar:ro
     depends_on:
       - server
   server:
     image: docker.io/itzg/minecraft-server:2026.8.1
     hostname: server
-    restart: no
     user: ${CUID:-0}:${CGID:-0}
     environment:
       UID: "${CUID:-0}"
