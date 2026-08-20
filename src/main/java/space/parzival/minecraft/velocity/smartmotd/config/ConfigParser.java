@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.representer.Representer;
@@ -46,14 +47,11 @@ public class ConfigParser<T> {
             }
         }
 
-        Constructor constructor = new Constructor(configClass);
-        constructor.getPropertyUtils().setSkipMissingProperties(true);
-
-        Representer representer = new Representer(new DumperOptions());
-        representer.getPropertyUtils().setSkipMissingProperties(true);
+        LoaderOptions options = new LoaderOptions();
+        Constructor constructor = new Constructor(configClass, options);
 
         // load the YAML parser
-        this.yaml = new Yaml(constructor, representer);
+        this.yaml = new Yaml(constructor);
         T configObject = null; // NOSONAR - intentionally set to null
         try (FileReader configFileReader = new FileReader(configFile)) {
             configObject = yaml.load(configFileReader);
